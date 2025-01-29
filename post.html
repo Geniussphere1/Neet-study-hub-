@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NEET Study Hub - Posts</title>
     <style>
-        /* Resetting basic styles */
+        /* Same styles as previous, with some changes */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* Body Styling */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -29,7 +28,6 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        /* Header Section */
         header {
             background-color: #007bff;
             padding: 20px 0;
@@ -47,7 +45,6 @@
             margin-bottom: 20px;
         }
 
-        /* Card Styling */
         .card-container {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -80,56 +77,6 @@
             margin-bottom: 10px;
         }
 
-        .card a {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        .card a:hover {
-            background-color: #0056b3;
-        }
-
-        /* Post Details Section */
-        .post-details {
-            display: none;
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 40px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .post-details h2 {
-            font-size: 2rem;
-            margin-bottom: 15px;
-        }
-
-        .post-details p {
-            font-size: 1.2rem;
-            line-height: 1.6;
-        }
-
-        .back-btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 20px;
-            transition: background-color 0.3s ease;
-        }
-
-        .back-btn:hover {
-            background-color: #0056b3;
-        }
-
-        /* Footer Styling */
         footer {
             text-align: center;
             padding: 20px 0;
@@ -142,25 +89,15 @@
 <body>
 
     <div class="container">
-        <!-- Header Section -->
         <header>
             <h1>NEET Study Hub - Posts</h1>
             <p>Read the latest posts from NEET Study Hub</p>
         </header>
 
-        <!-- Card Container for Posts -->
         <div class="card-container" id="postContainer">
             <!-- Posts will be dynamically loaded here -->
         </div>
 
-        <!-- Post Details Section (hidden by default) -->
-        <div id="postDetails" class="post-details">
-            <h2 id="postTitle"></h2>
-            <p id="postContent"></p>
-            <a href="#" class="back-btn" onclick="goBack()">Back to Posts</a>
-        </div>
-
-        <!-- Footer Section -->
         <footer>
             <p>&copy; 2025 NEET Study Hub. All rights reserved.</p>
         </footer>
@@ -183,11 +120,12 @@
                     posts.forEach(post => {
                         const postCard = document.createElement("div");
                         postCard.classList.add("card");
-                        postCard.setAttribute("onclick", `showPostDetails(${post.id})`);
 
+                        // Link to post-detail page with the post ID as a URL parameter
                         postCard.innerHTML = `
                             <h2>${post.title}</h2>
                             <p>${post.body.substring(0, 150)}...</p>
+                            <a href="post-detail.html?postId=${post.id}">Read Full Post</a>
                         `;
 
                         postContainer.appendChild(postCard);
@@ -198,31 +136,6 @@
             } catch (error) {
                 console.error("Error fetching posts:", error);
             }
-        }
-
-        // Show the full post details when a card is clicked
-        async function showPostDetails(postId) {
-            try {
-                const response = await fetch(`${apiUrl}/${postId}`);
-                const post = await response.json();
-
-                // Display the full content of the post
-                document.getElementById("postTitle").innerText = post.title;
-                document.getElementById("postContent").innerText = post.body;
-
-                // Hide the post list and show the details section
-                document.getElementById("postContainer").style.display = "none";
-                document.getElementById("postDetails").style.display = "block";
-            } catch (error) {
-                console.error("Error fetching post details:", error);
-            }
-        }
-
-        // Go back to the list of posts
-        function goBack() {
-            // Show the post list and hide the details section
-            document.getElementById("postContainer").style.display = "grid";
-            document.getElementById("postDetails").style.display = "none";
         }
 
         // Call the fetchPosts function when the page loads
