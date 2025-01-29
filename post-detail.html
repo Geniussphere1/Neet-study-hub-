@@ -1,1 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Detail - NEET Study Hub</title>
+    <style>
+        /* Same styles as previous, plus styles for the post detail */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            background-color: #007bff;
+            padding: 20px 0;
+            text-align: center;
+            color: white;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .post-content {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .post-content h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .post-content p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #333;
+            color: white;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Post Details - NEET Study Hub</h1>
+            <p>Read the full content of the post</p>
+        </header>
+
+        <!-- Post Content -->
+        <div class="post-content" id="postContent">
+            <!-- Post details will be loaded here -->
+        </div>
+
+        <a href="post.html" class="back-btn">Back to Posts</a>
+
+        <footer>
+            <p>&copy; 2025 NEET Study Hub. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Get the post ID from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const postId = urlParams.get('postId');
+
+        // GitHub API URL - replace with your repository's raw content URL
+        const apiUrl = `https://api.github.com/repos/geniussphere1/Neet-study-hub-/issues/${postId}`;
+
+        // Fetch and display the full post details
+        async function fetchPostDetails() {
+            try {
+                const response = await fetch(apiUrl);
+                const post = await response.json();
+
+                // Display the full content of the post
+                const postContentElement = document.getElementById("postContent");
+                postContentElement.innerHTML = `
+                    <h2>${post.title}</h2>
+                    <p>${post.body}</p>
+                `;
+            } catch (error) {
+                console.error("Error fetching post details:", error);
+            }
+        }
+
+        // Call the fetchPostDetails function when the page loads
+        fetchPostDetails();
+    </script>
+
+</body>
+</html>
 
