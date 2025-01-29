@@ -1,1 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEET Study Hub - Posts</title>
+    <style>
+        /* Resetting basic styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header Section */
+        header {
+            background-color: #007bff;
+            padding: 20px 0;
+            text-align: center;
+            color: white;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        /* Card Styling */
+        .card-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .card a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .card a:hover {
+            background-color: #0056b3;
+        }
+
+        /* Footer Styling */
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #333;
+            color: white;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header Section -->
+        <header>
+            <h1>NEET Study Hub - Posts</h1>
+            <p>Read the latest posts from NEET Study Hub</p>
+        </header>
+
+        <!-- Card Container for Posts -->
+        <div class="card-container" id="postContainer">
+            <!-- Posts will be dynamically loaded here -->
+        </div>
+
+        <!-- Footer Section -->
+        <footer>
+            <p>&copy; 2025 NEET Study Hub. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // GitHub API URL - replace with your repository's raw content URL
+        const apiUrl = "https://api.github.com/repos/geniussphere1/Neet-study-hub-/issues";
+
+        // Fetch and display posts from GitHub Issues API
+        async function fetchPosts() {
+            try {
+                const response = await fetch(apiUrl);
+                const posts = await response.json();
+
+                if (posts.length > 0) {
+                    const postContainer = document.getElementById("postContainer");
+
+                    // Loop through posts and create cards
+                    posts.forEach(post => {
+                        const postCard = document.createElement("div");
+                        postCard.classList.add("card");
+
+                        postCard.innerHTML = `
+                            <h2>${post.title}</h2>
+                            <p>${post.body.substring(0, 150)}...</p>
+                            <a href="${post.html_url}" target="_blank">Read Full Post</a>
+                        `;
+
+                        postContainer.appendChild(postCard);
+                    });
+                } else {
+                    console.log("No posts found.");
+                }
+            } catch (error) {
+                console.error("Error fetching posts:", error);
+            }
+        }
+
+        // Call the fetchPosts function when the page loads
+        fetchPosts();
+    </script>
+
+</body>
+</html>
 
