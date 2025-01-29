@@ -1,1 +1,74 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEET Study Hub</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .post {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+        }
+        .post h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .post p {
+            font-size: 16px;
+        }
+        .post small {
+            color: #555;
+            font-size: 12px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>NEET Study Hub</h1>
+        <p>Latest study materials, tips, and more!</p>
+    </div>
+    <div id="posts"></div>
+
+    <script>
+        // Replace with your own GitHub username and repository name
+        const GITHUB_USERNAME = "geniussphere1"; // Your GitHub username
+        const REPO_NAME = "Neet-study-hub-"; // Your repository name
+        const API_URL = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/issues`;
+
+        async function fetchPosts() {
+            const response = await fetch(API_URL);
+            const issues = await response.json();
+
+            // Get the container where posts will be displayed
+            const postsDiv = document.getElementById("posts");
+            postsDiv.innerHTML = ""; // Clear previous content
+
+            // Loop through each GitHub issue (which is a blog post)
+            issues.forEach(issue => {
+                const postDiv = document.createElement("div");
+                postDiv.className = "post";
+                postDiv.innerHTML = `
+                    <h2>${issue.title}</h2>
+                    <p>${issue.body}</p>
+                    <small>Posted on: ${new Date(issue.created_at).toLocaleDateString()}</small>
+                `;
+                postsDiv.appendChild(postDiv);
+            });
+        }
+
+        // Fetch and display posts when the page loads
+        fetchPosts();
+    </script>
+</body>
+</html>
