@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NEET Study Hub - Posts</title>
     <style>
-        /* Same styles as previous, with some changes */
         * {
             margin: 0;
             padding: 0;
@@ -104,7 +103,7 @@
     </div>
 
     <script>
-        // GitHub API URL - replace with your repository's raw content URL
+        // GitHub API URL to fetch posts (issues)
         const apiUrl = "https://api.github.com/repos/geniussphere1/Neet-study-hub-/issues";
 
         // Fetch and display posts from GitHub Issues API
@@ -135,6 +134,7 @@
                 }
             } catch (error) {
                 console.error("Error fetching posts:", error);
+                document.getElementById("postContainer").innerHTML = `<p>Failed to load posts. Please try again later.</p>`;
             }
         }
 
